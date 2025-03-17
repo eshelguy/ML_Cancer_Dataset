@@ -34,10 +34,10 @@ def plot_result(y_test, y_pred, score_train, score_test, algo_name):
     plt.show()
 
 #ציור השוואה בין כל האלגוריתמים
-def plot_comparison(knn_scores, svm_scores, pca_scores, logistic_scores):
-    algorithms = ['KNN', 'SVM', 'PCA', 'Logistic Regression']
-    train_scores = [score[0] for score in [knn_scores, svm_scores, pca_scores, logistic_scores]]
-    test_scores = [score[1] for score in [knn_scores, svm_scores, pca_scores, logistic_scores]]
+def plot_comparison(knn_scores, svm_scores, logistic_scores, random_forest):
+    algorithms = ['KNN', 'SVM', 'Logistic Regression', 'Random Forest']
+    train_scores = [score[0] for score in [knn_scores, svm_scores, logistic_scores, random_forest]]
+    test_scores = [score[1] for score in [knn_scores, svm_scores, logistic_scores, random_forest]]
 
     x = range(len(algorithms))
 
@@ -47,6 +47,23 @@ def plot_comparison(knn_scores, svm_scores, pca_scores, logistic_scores):
     plt.xlabel('Algorithm')
     plt.ylabel('Accuracy')
     plt.title('Comparison of Algorithms')
+    plt.xticks(x, algorithms)
+    plt.legend()
+    plt.show()
+
+def plot_comparison_pca(knn_scores, svm_scores, logistic_scores, random_forest):
+    algorithms = ['KNN+PCA', 'SVM+PCA', 'LR+PCA', 'RF+PCA']
+    train_scores = [score[0] for score in [knn_scores, svm_scores, logistic_scores, random_forest]]
+    test_scores = [score[1] for score in [knn_scores, svm_scores, logistic_scores, random_forest]]
+
+    x = range(len(algorithms))
+
+    plt.bar(x, train_scores, width=0.4, label='Train Accuracy', align='center', alpha=0.7)
+    plt.bar(x, test_scores, width=0.4, label='Test Accuracy', align='edge', alpha=0.7)
+
+    plt.xlabel('Algorithm')
+    plt.ylabel('Accuracy')
+    plt.title('Comparison of Algorithms + PCA')
     plt.xticks(x, algorithms)
     plt.legend()
     plt.show()
